@@ -6,7 +6,7 @@ nltk.download("stopwords")
 # nltk.download("omw-1.4")
 
 # from nltk.stem import WordNetLemmatizer
-# from nltk.corpus import stopwords
+from nltk.corpus import stopwords
 
 stopwords = stopwords.words('english')
 
