@@ -1,6 +1,7 @@
 email-validator
 en-core-web-sm
 fastapi
+gunicorn
 httptools
 itsdangerous
 orjson
