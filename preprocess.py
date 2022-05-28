@@ -8,7 +8,7 @@ nltk.download("stopwords")
 # from nltk.stem import WordNetLemmatizer
 # from nltk.corpus import stopwords
 
-# stopwords = stopwords.words('english')
+stopwords = stopwords.words('english')
 
 # lemmatizer = WordNetLemmatizer()
 
