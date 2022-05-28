@@ -1,13 +1,3 @@
-import spacy
-from spacy.lang.en.stop_words import STOP_WORDS
-
-nlp = spacy.load("en_core_web_sm")
-
-def pre_process(teks):
-    doc = nlp(teks)
-    filtered = [token.lemma_.lower() for token in doc if token.is_stop == False and token.text.isalpha() == True and token.text != 'amp']
-    return " ".join(filtered)
-
 import re
 from typing import List
 
