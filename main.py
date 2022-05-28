@@ -6,14 +6,11 @@ import json
 import numpy as np
 import os
 
-from preprocess import SpacyPreprocessor
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 
-
-spacy_model = SpacyPreprocessor.load_model()
-preprocessor = SpacyPreprocessor(spacy_model=spacy_model, lemmatize=True, remove_numbers=True, remove_stopwords=True)
+from preprocess import pre_process
 
 app = FastAPI()
 
@@ -27,7 +24,7 @@ async def root():
 
 @app.post("/predict/")
 async def predict(teks: Teks):
-    desc_cleaned = preprocessor.preprocess_text(teks.desc)
+    desc_cleaned = pre_process(teks.desc)
     print(os.getcwd())
 
     with open('assets/tokenizer_with_counts_100.json') as f:
