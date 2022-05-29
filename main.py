@@ -24,7 +24,7 @@ async def root():
 
 @app.post("/predict/")
 async def predict(teks: Teks):
-    desc_cleaned = pre_process(teks.desc)
+    desc_cleaned = teks.desc
     print(os.getcwd())
 
     with open('assets/tokenizer_with_counts_100.json') as f:
