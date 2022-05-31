@@ -4,8 +4,8 @@ from pydantic import BaseModel
 import tensorflow as tf
 import json
 import numpy as np
-import os
 import pandas as pd
+import translators as ts
 
 from preprocess import SpacyPreprocessor
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
@@ -28,9 +28,13 @@ async def root():
 
 @app.post("/predict/")
 async def predict(teks: Teks):
-    desc_cleaned = preprocessor.preprocess_text(teks.desc)
-    print(os.getcwd())
+    # Translate ke inggris
+    translated_text = ts.google(teks.desc, to_language='en')
 
+    # Preprocess
+    desc_cleaned = preprocessor.preprocess_text(translated_text)
+
+    # Predict
     with open('assets/tokenizer.json') as f:
         data = json.load(f)
         tokenizer = tokenizer_from_json(data)
