@@ -5,6 +5,7 @@ import tensorflow as tf
 import json
 import numpy as np
 import os
+import pandas as pd
 
 from preprocess import SpacyPreprocessor
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
@@ -30,7 +31,7 @@ async def predict(teks: Teks):
     desc_cleaned = preprocessor.preprocess_text(teks.desc)
     print(os.getcwd())
 
-    with open('assets/tokenizer_with_counts_100.json') as f:
+    with open('assets/tokenizer.json') as f:
         data = json.load(f)
         tokenizer = tokenizer_from_json(data)
    
@@ -41,17 +42,34 @@ async def predict(teks: Teks):
     pred_sequences = tokenizer.texts_to_sequences([desc_cleaned])
     pred_padded = pad_sequences(pred_sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
 
-    model = tf.keras.models.load_model('assets/GRU_dense_with_count_100.h5')
+    model = tf.keras.models.load_model('assets/model.h5')
 
     result = model.predict(pred_padded)[0]
-    idx = np.argmax(result)
+    idx = result.argsort()[-3:][::-1]
 
     encoder = LabelEncoder()
-    encoder.classes_ = np.load('assets/encoder_with_count_100.npy', allow_pickle=True)
+    encoder.classes_ = np.load('assets/encoder.npy', allow_pickle=True)
 
-    condition = encoder.inverse_transform([idx])[0]
+    conditions = encoder.inverse_transform(idx)
+
+    ############################################
+
+    # load description and medicine
+    description = pd.read_pickle("data/description.pkl")
+    medicine = pd.read_pickle("data/medicine.pkl")
+
+    result_json = []
+    for condition in conditions:
+        deskripsi = description[description['Condition'] == condition]['Deskripsi'].values[0]
+        obats = medicine.loc[condition].sort_values(['usefulCount'], ascending=False).nlargest(3, ['usefulCount']).index.tolist()
+        result_json.append(
+            {
+                "disease": condition,
+                "deskripsi": deskripsi,
+                "obat": obats
+            }
+        )
 
     return {
-            "desc": desc_cleaned,
-            "disease": condition,
-        }
+        "result": result_json
+    }
