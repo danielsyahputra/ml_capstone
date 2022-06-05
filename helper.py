@@ -46,7 +46,7 @@ def get_prediction(model, pred_padded, encoder, description):
     conditions = encoder.inverse_transform(idx)
 
     result_json = []
-    for i, condition in enumerate(conditions):
+    for i,condition in enumerate(conditions):
         probability = result[idx[i]]
         deskripsi = description[description['Condition'] == condition]['Deskripsi'].values[0]
         result_json.append(

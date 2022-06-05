@@ -108,7 +108,6 @@ class SpacyPreprocessor:
 
         # Remove empty tokens
         tokens = [token for token in tokens if token.text.strip() != "" and token.text != 'amp']
-
         # Lemmatize
         if self._lemmatize:
             text = " ".join([token.lemma_ for token in tokens])
