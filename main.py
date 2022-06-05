@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import translators as ts
 
@@ -11,16 +12,41 @@ preprocessor = SpacyPreprocessor(spacy_model=spacy_model, lemmatize=True, remove
 
 tokenizer, model, encoder, description = load_stuff()
 
-app = FastAPI()
+app = FastAPI(
+    title="Disease Prediction API",
+    description=API_DESC,
+    version="0.0.1",
+    license_info={
+        "name": "MIT License",
+        "url": "https://opensource.org/licenses/MIT",
+    }
+)
 
 class Teks(BaseModel):
     desc: str
 
-@app.get("/")
+@app.get("/", tags=["General"], response_class=HTMLResponse)
 async def root():
-    return {"message": "Please, go to /docs endpoint for more info"}
+    return """
+    <html>
+        <head>
+            <title>Disease Prediction API</title>
+        </head>
+        <body>
+            <center>
+                <h1>Disease Prediction API</h1>
+                <h3>Please, go to <a href='https://ml.matthewbd.my.id/docs'>API Documentation</a> for more information.</h3>
+            </center>
+        </body>
+    </html>
+    """
 
-@app.post("/predict/")
+@app.get("/disease", tags=["General"])
+async def root():
+    return json.loads(description.to_json(orient="records"))
+
+
+@app.post("/predict/", tags=['Prediction'])
 async def predict(teks: Teks):
 
     # Translate teks into english first

@@ -49,9 +49,22 @@ def get_prediction(model, pred_padded, encoder, description):
         deskripsi = description[description['Condition'] == condition]['Deskripsi'].values[0]
         result_json.append(
             {
-                "disease": condition,
+                "disease": "Fibromyalgia" if condition == 'ibromyalgia' else condition.title(),
                 "probability": probability,
                 "deskripsi": deskripsi,
             }
         )
     return result_json
+
+API_DESC = description = """
+> Disease Prediction API helps you do awesome stuff. 🚀
+
+## Our Team
+- Daniel Syahputra Purba
+- Mardianto
+- Larasati
+
+You will be able to:
+
+* **Predict disease based on symptoms** (Ongoing).
+"""
