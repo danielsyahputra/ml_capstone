@@ -12,8 +12,7 @@ preprocessor = SpacyPreprocessor(
                     spacy_model=spacy_model,
                     lemmatize=True,
                     remove_numbers=True,
-                    remove_stopwords=True
-                )
+                    remove_stopwords=True)
 
 tokenizer, model, encoder, description = load_stuff()
 
