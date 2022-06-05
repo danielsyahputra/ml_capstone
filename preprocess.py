@@ -40,7 +40,7 @@ class SpacyPreprocessor:
     def download_spacy_model(model="en_core_web_sm"):
         print(f"Downloading spaCy model {model}")
         spacy.cli.download(model)
-        print(f"Finished downloading model")
+        print("Finished downloading model")
 
     @staticmethod
     def load_model(model="en_core_web_sm"):
@@ -108,7 +108,6 @@ class SpacyPreprocessor:
 
         # Remove empty tokens
         tokens = [token for token in tokens if token.text.strip() != "" and token.text != 'amp']
-
         # Lemmatize
         if self._lemmatize:
             text = " ".join([token.lemma_ for token in tokens])
