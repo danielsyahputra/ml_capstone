@@ -24,7 +24,7 @@ class Teks(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Please, go to /docs endpoint for more info"}
 
 @app.post("/predict/")
 async def predict(teks: Teks):
@@ -60,20 +60,21 @@ async def predict(teks: Teks):
 
     # load description and medicine
     description = pd.read_pickle("data/description.pkl")
-    medicine = pd.read_pickle("data/medicine.pkl")
 
     result_json = []
-    for condition in conditions:
+    for i in range(len(conditions)):
+        condition = conditions[i]
+        probability = float(result[idx[i]])
         deskripsi = description[description['Condition'] == condition]['Deskripsi'].values[0]
-        obats = medicine.loc[condition].sort_values(['usefulCount'], ascending=False).nlargest(3, ['usefulCount']).index.tolist()
         result_json.append(
             {
                 "disease": condition,
+                "probability": probability,
                 "deskripsi": deskripsi,
-                "obat": obats
             }
         )
 
     return {
+        "description": desc_cleaned,
         "result": result_json
     }
