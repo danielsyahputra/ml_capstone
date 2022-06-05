@@ -20,16 +20,16 @@ def get_padded_text(tokenizer, desc_cleaned):
 def load_stuff():
 
     # Load tokenizer
-    with open('assets/tokenizer.json') as f:
+    with open('assets/tokenizer2.json') as f:
         data = json.load(f)
         tokenizer = tokenizer_from_json(data)
     
     # Load model
-    model = tf.keras.models.load_model('assets/model.h5')
+    model = tf.keras.models.load_model('assets/model2.h5')
 
     # Load encoder
     encoder = LabelEncoder()
-    encoder.classes_ = np.load('assets/encoder.npy', allow_pickle=True)
+    encoder.classes_ = np.load('assets/encoder2.npy', allow_pickle=True)
 
     # Load description
     description = pd.read_pickle("data/description.pkl")
