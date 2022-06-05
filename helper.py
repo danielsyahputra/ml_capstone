@@ -13,7 +13,11 @@ def get_padded_text(tokenizer, desc_cleaned):
     padding_type = 'post'
 
     pred_sequences = tokenizer.texts_to_sequences([desc_cleaned])
-    pred_padded = pad_sequences(pred_sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
+    pred_padded = pad_sequences(
+                    pred_sequences,
+                    maxlen=max_length,
+                    padding=padding_type,
+                    truncating=trunc_type)
 
     return pred_padded
 
@@ -22,8 +26,7 @@ def load_stuff():
     # Load tokenizer
     with open('assets/tokenizer2.json') as f:
         data = json.load(f)
-        tokenizer = tokenizer_from_json(data)
-    
+        tokenizer = tokenizer_from_json(data)      
     # Load model
     model = tf.keras.models.load_model('assets/model2.h5')
 
@@ -43,20 +46,19 @@ def get_prediction(model, pred_padded, encoder, description):
     conditions = encoder.inverse_transform(idx)
 
     result_json = []
-    for i in range(len(conditions)):
-        condition = conditions[i]
-        probability = float(result[idx[i]])
+    for i, condition in enumerate(conditions):
+        probability = result[idx[i]]
         deskripsi = description[description['Condition'] == condition]['Deskripsi'].values[0]
         result_json.append(
             {
                 "disease": "Fibromyalgia" if condition == 'ibromyalgia' else condition.title(),
-                "probability": probability,
+                "probability": float(f"{probability:.2f}"),
                 "deskripsi": deskripsi,
             }
         )
     return result_json
 
-API_DESC = description = """
+API_DESC = """
 > Disease Prediction API helps you do awesome stuff. 🚀
 
 ## Our Team

@@ -8,7 +8,11 @@ from helper import *
 
 
 spacy_model = SpacyPreprocessor.load_model()
-preprocessor = SpacyPreprocessor(spacy_model=spacy_model, lemmatize=True, remove_numbers=True, remove_stopwords=True)
+preprocessor = SpacyPreprocessor(
+                    spacy_model=spacy_model,
+                    lemmatize=True,
+                    remove_numbers=True,
+                    remove_stopwords=True)
 
 tokenizer, model, encoder, description = load_stuff()
 
@@ -42,7 +46,7 @@ async def root():
     """
 
 @app.get("/disease", tags=["General"])
-async def root():
+async def diseases():
     return json.loads(description.to_json(orient="records"))
 
 
@@ -65,3 +69,4 @@ async def predict(teks: Teks):
         "description": desc_cleaned,
         "result": result
     }
+    

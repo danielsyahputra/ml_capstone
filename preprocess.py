@@ -40,7 +40,7 @@ class SpacyPreprocessor:
     def download_spacy_model(model="en_core_web_sm"):
         print(f"Downloading spaCy model {model}")
         spacy.cli.download(model)
-        print(f"Finished downloading model")
+        print("Finished downloading model")
 
     @staticmethod
     def load_model(model="en_core_web_sm"):
