@@ -25,7 +25,10 @@ Nowadays, even with the fast development of technology, it is still hard to know
   <img align="center" src="https://i.ibb.co/f0k1VN5/README-1.png" alt="tech-stack"/>
 </p>
 
-
+### Machine Learning Process
+<p align="center">
+  <img align="center" src="https://i.ibb.co/GHGGNvn/Bangkit-Capstone-Page-2.png" alt="ml-process"/>
+</p>
 
 ## Online API
 You can access this API through the link given: [API Documentation](https://ml.matthewbd.my.id/docs)
