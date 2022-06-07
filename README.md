@@ -30,10 +30,18 @@ Nowadays, even with the fast development of technology, it is still hard to know
   <img align="center" src="https://i.ibb.co/GHGGNvn/Bangkit-Capstone-Page-2.png" alt="ml-process"/>
 </p>
 
+### Project Repository
+- [Android](https://github.com/KristiantoD/disease-prediction-app)
+- [Cloud Computing](https://github.com/MatthewBrandon21/Disease-Prediction-API-Capstone)
+
 ## Online API
-You can access this API through the link given: [API Documentation](https://ml.matthewbd.my.id/docs)
+We also provide you an online API thay you can access through the link given: [API Documentation](https://ml.matthewbd.my.id/docs)
+
+### How to Use This API
+
 
 ## Setup API in Local Environment
+Before you go to the next step, I recommend to you to create your virtual environment for this project.
 - Clone this repo using this command `git clone https://github.com/danielsyahputra13/ml_capstone.git`
 - Run this: `cd ml_capstone`
 - Install requirements or dependencies using `pip install -r requirements.txt`
