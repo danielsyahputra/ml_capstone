@@ -38,7 +38,17 @@ Nowadays, even with the fast development of technology, it is still hard to know
 We also provide you an online API thay you can access through the link given: [API Documentation](https://ml.matthewbd.my.id/docs)
 
 ### How to Use This API
+You can try how this API works via CURL command, API testing tools such as Postman, or directly via API documentation. If you want to try via CURL, We give you an example of CURL command below:
 
+```
+curl -X 'POST' \
+  'https://ml.matthewbd.my.id/predict/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "desc": "my son is aggressive and violent does not listen, easily distracted"
+}'
+```
 
 ## Setup API in Local Environment
 Before you go to the next step, I recommend to you to create your virtual environment for this project.
